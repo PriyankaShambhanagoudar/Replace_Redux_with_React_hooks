@@ -1,12 +1,17 @@
 import React, { useState } from "react";
+import Products from './../containers/Products';
+import { TOGGLE_FAV } from './../store/actions/products';
 
 
 export const ProductsContext = React.createContext({
-    products: []
+    products: [],
+    toggleFav: (id) => {
+
+    }
 })
 
 export default props => {
-    const [products, setProducts] = useState([
+    const [productsList, setProductsList] = useState([
         {
             id: 'p1',
             title: 'Red Scarf',
@@ -30,9 +35,26 @@ export default props => {
             title: 'Orange Hat',
             description: 'Street style! An orange hat.',
             isFavorite: false
-        }])
+        }]);
+
+    const toggleFavorite = productId => {
+        setProductsList(currentProdList => {
+            const prodIndex = currentProdList.findIndex(
+                p => p.id === productId
+            );
+            const newFavStatus = !currentProdList[prodIndex].isFavorite;
+            const updatedProducts = [...currentProdList];
+
+            updatedProducts[prodIndex] = {
+                ...currentProdList[prodIndex],
+                isFavorite: newFavStatus
+            };
+            return updatedProducts
+        })
+    }
+
     return (
-        <ProductsContext.Provider value={{ products }}>
+        <ProductsContext.Provider value={{ products: productsList, toggleFav: toggleFavorite }}>
             {props.children}
         </ProductsContext.Provider>
     );
