@@ -1,25 +1,19 @@
-import { initStore } from "./store";
-import { TOGGLE_FAV } from './../store/actions/products';
-import Products from './../containers/Products';
+import { initStore } from './store';
 
 const configureStore = () => {
-    const action = {
+    const actions = {
         TOGGLE_FAV: (curState, productId) => {
-            const prodIndex = curState.products.findIndex(
-                p => p.id === productId
-            );
+            const prodIndex = curState.products.findIndex(p => p.id === productId);
             const newFavStatus = !curState.products[prodIndex].isFavorite;
             const updatedProducts = [...curState.products];
-
             updatedProducts[prodIndex] = {
                 ...curState.products[prodIndex],
                 isFavorite: newFavStatus
             };
-
-            return { Products: updatedProducts }
+            return { products: updatedProducts };
         }
-    }
-    initStore(action, {
+    };
+    initStore(actions, {
         products: [
             {
                 id: 'p1',
@@ -44,7 +38,9 @@ const configureStore = () => {
                 title: 'Orange Hat',
                 description: 'Street style! An orange hat.',
                 isFavorite: false
-            }]
-    })
-}
-export default configureStore
+            }
+        ]
+    });
+};
+
+export default configureStore;
