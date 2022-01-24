@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import Products from './../containers/Products';
-import { TOGGLE_FAV } from './../store/actions/products';
+// import Products from './../containers/Products';
+// import { TOGGLE_FAV } from './../store/actions/products';
 
 
 export const ProductsContext = React.createContext({
